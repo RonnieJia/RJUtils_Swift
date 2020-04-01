@@ -1,5 +1,7 @@
 use_frameworks!
 
+source 'https://github.com/CocoaPods/Specs.git'
+
 target 'RJUtils_Swift_Example' do
   pod 'RJUtils_Swift', :path => '../'
 
