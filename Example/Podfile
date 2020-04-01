@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'RJUtils_Swift_Example' do
+  pod 'RJUtils_Swift', :path => '../'
+
+  target 'RJUtils_Swift_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
