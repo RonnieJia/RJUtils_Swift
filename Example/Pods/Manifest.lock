@@ -3,7 +3,7 @@ PODS:
   - NVActivityIndicatorView (4.8.0):
     - NVActivityIndicatorView/Presenter (= 4.8.0)
   - NVActivityIndicatorView/Presenter (4.8.0)
-  - RJUtils_Swift (1.0.0):
+  - RJUtils_Swift (1.0.1):
     - MBProgressHUD (~> 1.2.0)
     - NVActivityIndicatorView (~> 4.8.0)
 
@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
-  RJUtils_Swift: e0d168efe83043f52402c6dcd8b0f3065cbeb031
+  RJUtils_Swift: 188510d1e2d3fcf65eb2a18f1d7019dbf931c7ce
 
 PODFILE CHECKSUM: 3fc5f32e44400b4aff0a086a34c82a47af056bf4
 

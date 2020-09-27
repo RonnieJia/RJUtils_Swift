@@ -14,7 +14,13 @@ public let kTabbarHeight = UITabBar.appearance().frame.height
 public let kScreenWidth = UIScreen.main.bounds.width
 public let kScreenHeight = UIScreen.main.bounds.height
 public let isIphoneX = kStatusBarHeight > 20
-public let kSafeBottonHeight = isIphoneX ? 34 : 0
+public let safeBottomHeigt: CGFloat = {
+    guard #available(iOS 11.0, *) else {
+        return 0.0
+    }
+    return UIApplication.shared.windows[0].safeAreaInsets.bottom
+}()
+
 
 public let RJNotificationCenter = NotificationCenter.default
 
