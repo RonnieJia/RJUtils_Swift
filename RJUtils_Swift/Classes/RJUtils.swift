@@ -8,77 +8,99 @@ import MBProgressHUD
 
 
 
-public enum RJTextFont {
-    case navigationTitle
-    case defaultText
-    case detailText
-    
-    public func textFont() -> UIFont {
-        switch self {
-        case .navigationTitle:
-            return UIFont.systemFont(ofSize: 18)
-        case .defaultText:
-            return UIFont.systemFont(ofSize: 14)
-        case .detailText:
-            return UIFont.systemFont(ofSize: 12)
-        }
-    }
-}
-
-public enum RJViewColor {
-    case grayBackground
-    case septorLine
-    
-    public func viewColor() -> UIColor {
-        switch self {
-        case .grayBackground:
-            return UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.0)
-        case .septorLine:
-            if #available(iOS 13.0, *) {
-                return UIColor.separator
-            } else {
-                return UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1)
-            }
-        }
-    }
-}
-public enum RJTextColor {
-    case textGray
-    case textDark
-    case placeholder
-    
-    public func textColor() -> UIColor {
-        switch self {
-        case .textGray:
-            return UIColor.lightText
-        case .textDark:
-            return UIColor.darkText
-        case .placeholder:
-            if #available(iOS 13.0, *) {
-                return UIColor.placeholderText
-            } else {
-                return UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-            }
-        }
-    }
-}
-
-
-
 public let kStatusBarHeight = UIApplication.shared.statusBarFrame.size.height
 public let kNavigatioBarHeight = kStatusBarHeight+44.0
 public let kTabbarHeight = UITabBar.appearance().frame.height
+public let kScreenWidth = UIScreen.main.bounds.width
+public let kScreenHeight = UIScreen.main.bounds.height
+public let isIphoneX = kStatusBarHeight > 20
+public let kSafeBottonHeight = isIphoneX ? 34 : 0
+
+public let RJNotificationCenter = NotificationCenter.default
+
+
+public func RJFont(size: CGFloat = 14.0) -> UIFont {
+    return UIFont.systemFont(ofSize: size)
+}
+
+public func RJMediumFont(size: CGFloat = 14.0) -> UIFont {
+    guard let font = UIFont(name: "PingFangSC-Medium", size: size) else {
+        return RJFont(size: size)
+    }
+    return font
+}
+
+public func RJHexColor(hex color: String) -> UIColor {
+    var nStr = color.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    guard nStr.count >= 6 else {
+        return UIColor.clear
+    }
+    if nStr.hasPrefix("0X") {
+        nStr = String(nStr[nStr.index(nStr.startIndex, offsetBy: 2) ..< nStr.endIndex])
+    }
+    if nStr.hasPrefix("#") {
+        nStr = String(nStr[nStr.index(nStr.startIndex, offsetBy: 1) ..< nStr.endIndex])
+    }
+    guard nStr.count == 6 else {
+        return UIColor.clear
+    }
+    
+    var startIndex = nStr.startIndex
+    let redStr = String(nStr[startIndex ..< nStr.index(startIndex, offsetBy: 2)])
+    
+    startIndex = nStr.index(startIndex, offsetBy: 2)
+    let greenStr = String(nStr[startIndex ..< nStr.index(startIndex, offsetBy: 2)])
+    
+    startIndex = nStr.index(startIndex, offsetBy: 2)
+    let blueStr = String(nStr[startIndex ..< nStr.index(startIndex, offsetBy: 2)])
+    
+    let redPointer = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
+    Scanner(string: redStr).scanHexInt32(redPointer)
+    
+    let greenPointer = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
+    Scanner(string: greenStr).scanHexInt32(greenPointer)
+    
+    let bluePointer = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
+    Scanner(string: blueStr).scanHexInt32(bluePointer)
+    
+    return RJRGBAColor(
+        red: CGFloat(redPointer.pointee),
+        green: CGFloat(greenPointer.pointee),
+        blue: CGFloat(bluePointer.pointee),
+        alpha: 1.0
+    )
+}
+
+public func RJRGBAColor(red r: CGFloat, green g: CGFloat, blue b: CGFloat, alpha a: CFloat) -> UIColor {
+    var rValue = r > 255.0 ? 255.0 : r
+    rValue = r < 0 ? 0 : rValue
+    
+    var gValue = g > 255.0 ? 255.0 : g
+    gValue = g < 0 ? 0 : gValue
+    
+    var bValue = b > 255.0 ? 255.0 : b
+    bValue = b < 0 ? 0 : bValue
+    
+    var aValue = CGFloat(a > 1.0 ? 1.0 : a)
+    aValue = a < 0 ? 0 : aValue
+    
+    return UIColor(red: rValue / 255.0, green: gValue / 255.0, blue: bValue / 255.0, alpha: aValue)
+}
+
+public func RJRGBColor(red r: CGFloat, green g: CGFloat, blue b: CGFloat) -> UIColor {
+    return RJRGBAColor(red: r, green: g, blue: b, alpha: 1.0)
+}
 
 public extension UIViewController {
     func RJ_showMessage(message: String) {
         self.view.RJ_showMessage(message: message)
     }
     
-    func showProgressHUD(type:NVActivityIndicatorType? = NVActivityIndicatorView.DEFAULT_TYPE, message: String? = nil) {
+    func RJ_showProgressHUD(type:NVActivityIndicatorType? = NVActivityIndicatorView.DEFAULT_TYPE, message: String? = nil) {
         self.view.RJ_showProgressHUD(type: type, message: message)
     }
     
-    func hideProgressHUD(message: String? = nil)  {
+    func RJ_hideProgressHUD(message: String? = nil)  {
         self.view.RJ_hideProgressHUD(message: message)
     }
 }
