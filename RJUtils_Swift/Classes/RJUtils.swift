@@ -128,7 +128,7 @@ public extension UIView {
     }
     
     func RJ_hideProgressHUD(message msg: String? = nil) {
-        guard let hud = MBProgressHUD(for: self) else { return }
+        guard let hud = MBProgressHUD.forView(self) else { return }
         if let activiyView: NVActivityIndicatorView = hud.customView as? NVActivityIndicatorView {
             activiyView.stopAnimating()
         }

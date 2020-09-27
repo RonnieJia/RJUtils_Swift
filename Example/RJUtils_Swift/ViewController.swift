@@ -19,6 +19,12 @@ class ViewController: UIViewController {
         view.addSubview(v)
         v.x(100)
         
+        
+        self.RJ_showProgressHUD()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+            self.RJ_hideProgressHUD()
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
 

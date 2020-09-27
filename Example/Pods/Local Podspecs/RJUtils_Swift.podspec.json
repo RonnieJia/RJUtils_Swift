@@ -1,9 +1,9 @@
 {
   "name": "RJUtils_Swift",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "summary": "A short description of RJUtils_Swift.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/Ronniejia/RJUtils_Swift",
+  "homepage": "https://github.com/RonnieJia/RJUtils_Swift",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +12,11 @@
     "Ronniejia": "657529876@qq.com"
   },
   "source": {
-    "git": "https://github.com/Ronniejia/RJUtils_Swift.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/RonnieJia/RJUtils_Swift.git",
+    "tag": "1.0.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source_files": "RJUtils_Swift/Classes/**/*",
   "dependencies": {
@@ -24,7 +24,7 @@
       "~> 4.8.0"
     ],
     "MBProgressHUD": [
-
+      "~> 1.2.0"
     ]
   }
 }
